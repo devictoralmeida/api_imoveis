@@ -9,7 +9,7 @@
     "typeorm:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate",
     "typeorm:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run ",
     "test": "cross-env NODE_ENV=test SECRET_KEY=secret_key EXPIRES_IN=1h jest --verbose --runInBand",
-    "build": "npm run -- typeorm:run && npm run build",
+    "build": "tsup src --out-dir build",
 		"start": "node build/server.js"
   },
   "devDependencies": {
