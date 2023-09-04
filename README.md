@@ -59,7 +59,7 @@ A API tem um total de 12 endpoints
 - Rota para criação de usuário com os seguintes dados:
   - **name**: string, máximo de 45 caracteres e obrigatório.
   - **email**: string, máximo de 45 caracteres, obrigatório e único. Onde não pode ser cadastrados dois usuários com o mesmo **e-mail**.
-  - **password**: string, máximo de 120 caracteres e obrigatório. Receberá uma string mas armazenará uma hash gerada com o **bcryptjs diretamente pela entidade do TypeORM**.
+  - **password**: string, mínimo 4 caracteres, máximo de 120 caracteres e obrigatório. Receberá uma string mas armazenará uma hash gerada com o **bcryptjs diretamente pela entidade do TypeORM**.
   - **admin**: boolean, obrigatório e false por padrão.
 
 ### CORPO DA REQUISIÇÃO:

@@ -1,12 +1,13 @@
 import { z } from "zod";
 
 export const userSchema = z.object({
-  id: z.number().positive(),
+  id: z.number().int().positive(),
   name: z
     .string()
-    .max(45),
-  email: z.string().email().max(45),
-  password: z.string().max(120),
+    .max(45)
+    .nonempty(),
+  email: z.string().email().nonempty().max(45),
+  password: z.string().min(4, 'Password must be at least 4 characters').max(120),
   admin: z.boolean().default(false),
   createdAt: z.string(),
   updatedAt: z.string(),

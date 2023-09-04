@@ -3,9 +3,9 @@ import { realEstateSchema } from "./realEstates.schema";
 import { readUserSchemaResponse } from "./users.schema";
 
 export const scheduleSchema = z.object({
-  id: z.number().positive(),
-  date: z.string().nonempty(),
-  hour: z.string().nonempty(),
+  id: z.number().int().positive(),
+  date: z.string(),
+  hour: z.string(),
   realEstate: realEstateSchema,
   user: readUserSchemaResponse,
 });
