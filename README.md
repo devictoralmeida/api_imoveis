@@ -37,14 +37,14 @@ A aplicação possui ampla cobertura com testes unitários e end-to-end realizad
 
 
 
-### Tabelas do banco de dados
+## Tabelas do banco de dados
 
 <div align="center">
   <img src="./DER.png" alt="Diagrama de entidades e relacionamentos" />
 </div>
 
 
-### Endpoints:
+## Endpoints:
 
 A API tem um total de 12 endpoints
 
@@ -121,6 +121,8 @@ A API tem um total de 12 endpoints
 ### GET - /users
 
 - Rota responsável por listar todos os usuários.
+
+[!IMPORTANT]
 - A rota pode ser acessada apenas por usuários **administradores**.
 
 ##### FORMATO DA RESPOSTA 
@@ -181,7 +183,11 @@ A API tem um total de 12 endpoints
 ### PATCH - /users/:id
 
 - Rota responsável por atualizar os dados do usuário.
+
+[!NOTE]
 - Só é possível atualizar o **name**, **email** e **password**.
+
+[!IMPORTANT]
 - Apenas administradores podem atualizar qualquer usuário, usuários não-administradores podem apenas atualizar seu próprio usuário.
 
 
@@ -255,9 +261,12 @@ A API tem um total de 12 endpoints
 ### DELETE - /users/:id
 
 - Rota responsável por realizar um soft delete do usuário.
-- A rota pode ser acessada apenas por administradores.
+
+[!NOTE]
 - Não é possível realizar um soft delete em um usuário já deletado.
 
+[!IMPORTANT]
+- A rota pode ser acessada apenas por administradores.
 
 #### FORMATO DA RESPOSTA
 
@@ -295,7 +304,6 @@ A API tem um total de 12 endpoints
 ### POST - /login
 
 - Rota de login recebendo **email** e **password**.
-
 
 #### CORPO DA REQUISIÇÃO:
 
@@ -337,12 +345,13 @@ A API tem um total de 12 endpoints
 - Rota responsável pela criação de uma categoria, recebendo os seguintes dados:
   - **name**: string, máximo de 45 caracteres e obrigatório.
 
+[!NOTE]
 - Não é possível criar uma categoria com o nome em duplicidade.
+
+[!IMPORTANT]
 - A rota pode ser acessada apenas por usuários administradores.
 
-
 #### CORPO DA REQUISIÇÃO:
-
 
 ```json
 {
@@ -350,9 +359,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-
 #### FORMATO DA RESPOSTA
-
 
 ##### CATEGORIA CRIADA COM SUCESSO: STATUS 201
 
@@ -472,7 +479,10 @@ A API tem um total de 12 endpoints
     - **city**: string, máximo de 20 caracteres e obrigatório.
     - **state**: string, máximo de 2 caracteres e obrigatório.
 
+[!NOTE]
 - Não podem ser cadastrados dois imóveis com o mesmo endereço.
+
+[!IMPORTANT]
 - A rota pode ser acessada apenas por administradores.
 
 
@@ -553,7 +563,6 @@ A API tem um total de 12 endpoints
 - Rota responsável por listar todos os imóveis.
 - A rota não precisa de autenticação para ser acessada.
 
-
 #### FORMATO DA RESPOSTA
 
 
@@ -608,15 +617,14 @@ A API tem um total de 12 endpoints
   - **realEstateId**: number, inteiro e obrigatório.
   - **userId**: Não deve ser passado no body da requisição, ele é captado através do token do usuário.
 
+[!NOTE]
 - Não é possível agendar uma visita a um imóvel com a mesma data e hora.
 - Não é possível o mesmo **usuário** agendar uma visita a 2 imóveis diferentes com a mesma data e hora.
 - Só é possível agendar uma visita durante horário comercial (08:00 as 18:00).
 - Só é possível agendar uma visita durante dias úteis (segunda à sexta).
 - A rota pode ser acessada tanto por usuários comuns quanto administradores.
 
-
 #### CORPO DA REQUISIÇÃO:
-
 
 ```json
 {
@@ -626,9 +634,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-
 #### FORMATO DA RESPOSTA 
-
 
 ##### AGENDAMENTO CRIADO COM SUCESSO: STATUS 201
 
@@ -683,8 +689,9 @@ A API tem um total de 12 endpoints
 ### GET - /schedules/realEstate/:id
 
 - Rota responsável por listar todos os agendamentos de um imóvel.
-- A rota pode ser acessada apenas por administradores.
 
+[!IMPORTANT]
+- A rota pode ser acessada apenas por administradores.
 
 #### FORMATO DA RESPOSTA
 
