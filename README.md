@@ -8,9 +8,11 @@
 
 ## Visão Geral
 
+
 Essa aplicação é um MVP de uma API REST, desenvolvida com o objetivo de facilitar o gerenciamento de serviços imobiliários; através dela é possível realizar o cadastro de imóveis e de usuários interessados na aquisição de propriedades. Além disso, também possível realizar o agendamento e consultar horários de visitas às propriedades disponíveis no banco de dados da imobiliária.
 
 A aplicação possui ampla cobertura com testes unitários e end-to-end realizados com Jest & Supertest, que são realizados a cada push no repositório, por meio da CI do Github Actions, para garantir que a aplicação esteja em conformidade com os requisitos de segurança e de negócios que foram previamente estabelecidos.
+
 
 ## :hammer: Funcionalidades do projeto:
 - CRUD de usuários
@@ -34,6 +36,17 @@ A aplicação possui ampla cobertura com testes unitários e end-to-end realizad
 - Jest e supertest
 <br/>
 
+#
+
+## **Tabelas do banco de dados**
+
+<div align="center">
+  <img src="./DER.png" alt="Diagrama de entidades e relacionamentos" />
+</div>
+
+
+#
+
 ## Endpoints:
 
 A API tem um total de 12 endpoints
@@ -53,20 +66,24 @@ A API tem um total de 12 endpoints
 | POST   | /schedules                 | Agenda uma visita a um imóvel                     | Qualquer usuário, obrigatório token    |
 | GET    | /schedules/realEstate/:id  | lista todos os agendamentos de um imóvel          | Apenas Admnistradores                  |
 
-<br/>
 
+#
 
 <h2 align ='center'> Usuário </h2>
 
+
 ## POST - /users
 
-- Rota para criação de usuário com os seguintes dados:
+
+- Rota responsável pela criação de usuário com os seguintes dados:
   - **name**: string, máximo de 45 caracteres e obrigatório.
   - **email**: string, máximo de 45 caracteres, obrigatório e único. Onde não pode ser cadastrados dois usuários com o mesmo **e-mail**.
   - **password**: string, mínimo 4 caracteres, máximo de 120 caracteres e obrigatório. Receberá uma string mas armazenará uma hash gerada com o **bcryptjs diretamente pela entidade do TypeORM**.
   - **admin**: boolean, obrigatório e false por padrão.
 
+
 ### CORPO DA REQUISIÇÃO:
+
 
 ```json
 {
@@ -76,9 +93,11 @@ A API tem um total de 12 endpoints
 }
 ```
 
-### FORMATO DA RESPOSTA - 
+### FORMATO DA RESPOSTA
 
-#### STATUS 200
+
+#### USUÁRIO CRIADO COM SUCESSO: STATUS 201
+
 ```json
 {
     "id": 1,
@@ -92,19 +111,28 @@ A API tem um total de 12 endpoints
 ```
 
 #### E-MAIL JÁ CADASTRADO: STATUS 409
+
 ```json
 {
     "message": "Email already exists"
 }
 ```
 
+
+#
+
 ## GET - /users
 
+
+- Rota responsável por listar todos os usuários.
 - A rota pode ser acessada apenas por usuários **administradores**.
 
-### FORMATO DA RESPOSTA - 
 
-#### STATUS 200
+### FORMATO DA RESPOSTA 
+
+
+#### LISTAGEM COM SUCESSO: STATUS 200
+
 ```json
 [
     {
@@ -138,6 +166,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### REQUISIÇÃO SEM O TOKEN: STATUS 401
+
 ```json
 {
     "message": "jwt must be provided"
@@ -145,21 +174,31 @@ A API tem um total de 12 endpoints
 ```
 
 #### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
+
 ```json
 {
     "message": "Insufficient permission"
 }
 ```
 
+
+#
+
 ## PATCH - /users/:id
 
-- Rota para atualizar os dados do usuário.
-- Só será possível atualizar o **name**, **email** e **password**.
+
+- Rota responsável por atualizar os dados do usuário.
+- Só é possível atualizar o **name**, **email** e **password**.
 - Apenas administradores podem atualizar qualquer usuário, usuários não-administradores podem apenas atualizar seu próprio usuário.
 
-### ROTA /users/1 - CORPO DA REQUISIÇÃO:
+
+### FORMATO DA RESPOSTA
+
+
+#### ATUALIZAÇÃO REALIZADA COM SUCESSO: STATUS 200
 
 ```json
+// Rota /users/1 - CORPO DA REQUISIÇÃO:
 {
     "name": "JhonDoe",
     "email": "jhondoe@gmail.com",
@@ -167,9 +206,6 @@ A API tem um total de 12 endpoints
 }
 ```
 
-### FORMATO DA RESPOSTA - 
-
-#### STATUS 200
 ```json
 {
     "id": 1,
@@ -183,6 +219,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### REQUISIÇÃO SEM O TOKEN: STATUS 401
+
 ```json
 {
     "message": "jwt must be provided"
@@ -190,6 +227,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
+
 ```json
 {
     "message": "Insufficient permission"
@@ -197,6 +235,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### REQUISIÇÃO COM O TOKEN SEM SER DE ADMIN E TENTANDO ATUALIZAR UM OUTRO USUÁRIO: STATUS 403
+
 ```json
 {
     "message": "Insufficient permission"
@@ -204,28 +243,43 @@ A API tem um total de 12 endpoints
 ```
 
 #### E-MAIL JÁ CADASTRADO: STATUS 409
+
 ```json
 {
     "message": "Email already exists"
 }
 ```
 
-#### ID SEM UM RESPECTIVO USUÁRIO: STATUS 404
+#### CASO O USUÁRIO NÃO EXISTA: STATUS 404
+
 ```json
 {
 	"message": "User not found"
 }
 ```
 
+
+#
+
 ## DELETE - /users/:id
 
-- A rota realiza um soft delete do usuário.
+
+- Rota responsável por realizar um soft delete do usuário.
 - A rota pode ser acessada apenas por administradores.
 - Não é possível realizar um soft delete em um usuário já deletado.
 
-### FORMATO DA RESPOSTA - 
+
+### FORMATO DA RESPOSTA
+
+
+#### USUÁRIO DELETADO COM SUCESSO: STATUS 204 - NO BODY
+
+```json
+
+```
 
 #### REQUISIÇÃO SEM O TOKEN: STATUS 401
+
 ```json
 {
   "message": "jwt must be provided"
@@ -233,27 +287,35 @@ A API tem um total de 12 endpoints
 ```
 
 #### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
+
 ```json
 {
   "message": "Insufficient permission"
 }
 ```
 
-#### ID SEM UM RESPECTIVO USUÁRIO: STATUS 404
+#### USUÁRIO INEXISTENTE: STATUS 404
+
 ```json
 {
 	"message": "User not found"
 }
 ```
 
+
+#
+
 <h2 align ='center'> Login </h2>
+
 
 ## POST - /login
 
+
 - Rota de login recebendo **email** e **password**.
-- A rota **não precisa de autenticação** para ser acessada.
+
 
 ### CORPO DA REQUISIÇÃO:
+
 
 ```json
 {
@@ -262,32 +324,43 @@ A API tem um total de 12 endpoints
 }
 ```
 
-### FORMATO DA RESPOSTA - 
 
-#### REQUISIÇÃO SEM O TOKEN: STATUS 200
+### FORMATO DA RESPOSTA
+
+
+#### TOKEN GERADO COM SUCESSO: STATUS 200
+
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjkzNjA3MjQ5LCJleHAiOjE2OTcyMDM2NDksInN1YiI6IjEifQ.OZ-gxd_82wEFKWjkgmo19SDDtG1FMzrNRBVNgv14a7o"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cC..."
 }
 ```
 
-#### REQUISIÇÃO COM EMAIL/SENHA ERRADO(A): STATUS 401
+#### REQUISIÇÃO COM EMAIL/SENHA INVÁLIDO(A): STATUS 401
+
 ```json
 {
 	"message": "Invalid credentials"
 }
 ```
 
+#
+
 <h2 align ='center'> Categorias </h2>
+
 
 ## POST - /categories
 
-- Rota para criação de categorias com os seguintes dados:
+
+- Rota responsável pela criação de uma categoria, recebendo os seguintes dados:
   - **name**: string, máximo de 45 caracteres e obrigatório.
+
 - Não é possível criar uma categoria com o nome em duplicidade.
 - A rota pode ser acessada apenas por usuários administradores.
 
+
 ### CORPO DA REQUISIÇÃO:
+
 
 ```json
 {
@@ -295,9 +368,12 @@ A API tem um total de 12 endpoints
 }
 ```
 
-### FORMATO DA RESPOSTA - 
 
-#### STATUS 200
+### FORMATO DA RESPOSTA
+
+
+#### CATEGORIA CRIADA COM SUCESSO: STATUS 201
+
 ```json
 {
   "id": 1,
@@ -306,6 +382,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### REQUISIÇÃO SEM O TOKEN: STATUS 401
+
 ```json
 {
   "message": "jwt must be provided"
@@ -313,6 +390,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
+
 ```json
 {
   "message": "Insufficient permission"
@@ -320,20 +398,27 @@ A API tem um total de 12 endpoints
 ```
 
 #### CATEGORIA JÁ EXISTENTE: STATUS 409
+
 ```json
 {
   "message": "Category already exists"
 }
 ```
 
+#
+
 ## GET - /categories
 
-- Rota deve listar todas as categorias.
+
+- Rota responsável por listar todas as categorias.
 - A rota não precisa de autenticação para ser acessada.
 
-### FORMATO DA RESPOSTA - 
 
-#### STATUS 200
+### FORMATO DA RESPOSTA
+
+
+#### LISTAGEM COM SUCESSO: STATUS 200
+
 ```json
 [
 	{
@@ -351,14 +436,20 @@ A API tem um total de 12 endpoints
 ]
 ```
 
+#
+
 ## GET - /categories/:id/realEstate
 
-- Rota deve listar todos os imóveis que pertencem a uma categoria.
+
+- Rota responsável por listar todos os imóveis que pertencem a uma categoria.
 - A rota não precisa de autenticação para ser acessada.
 
-### FORMATO DA RESPOSTA - 
 
-#### STATUS 200
+### FORMATO DA RESPOSTA
+
+
+#### LISTAGEM COM SUCESSO: STATUS 200
+
 ```json
 {
 	"id": 1,
@@ -376,18 +467,22 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### ID INEXISTENTE DA CATEGORIA: STATUS 404
+#### CATEGORIA INEXISTENTE: STATUS 404
+
 ```json
 {
   "message": "Category not found"
 }
 ```
 
+#
+
 <h2 align ='center'> Empreendimentos </h2>
 
 ## POST - /realEstate
 
-- Rota para criação de um imóvel
+
+- Rota responsável pela criação de um imóvel, recebendo os seguintes dados:
   - **value**: decimal, precisão 12 e escala 2, obrigatório e 0 por padrão.
   - **size**: número inteiro e obrigatório.
   - **address**: um objeto com os seguintes dados:
@@ -400,6 +495,7 @@ A API tem um total de 12 endpoints
 
 - Não podem ser cadastrados dois imóveis com o mesmo endereço.
 - A rota pode ser acessada apenas por administradores.
+
 
 ### CORPO DA REQUISIÇÃO:
 
@@ -418,9 +514,12 @@ A API tem um total de 12 endpoints
 }
 ```
 
-### FORMATO DA RESPOSTA - 
 
-#### STATUS 200
+### FORMATO DA RESPOSTA
+
+
+#### EMPREENDIMENTO CRIADO COM SUCESSO: STATUS 201
+
 ```json
 {
 	"value": "100000.99",
@@ -445,6 +544,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### REQUISIÇÃO SEM O TOKEN: STATUS 401
+
 ```json
 {
   "message": "jwt must be provided"
@@ -452,6 +552,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
+
 ```json
 {
   "message": "Insufficient permission"
@@ -459,20 +560,27 @@ A API tem um total de 12 endpoints
 ```
 
 #### ENDEREÇO JÁ EXISTENTE: STATUS 409
+
 ```json
 {
 	"message": "Address already exists"
 }
 ```
 
+#
+
 ## GET - /realEstate
 
-- Rota deve listar todos os imóveis.
+
+- Rota responsável por listar todos os imóveis.
 - A rota não precisa de autenticação para ser acessada.
 
-### FORMATO DA RESPOSTA - 
 
-#### STATUS 200
+### FORMATO DA RESPOSTA
+
+
+#### LISTAGEM COM SUCESSO: STATUS 200
+
 ```json
 [
 	{
@@ -510,22 +618,29 @@ A API tem um total de 12 endpoints
 ]
 ```
 
+#
+
 <h2 align ='center'> Agendamentos </h2>
+
 
 ## POST - /schedules
 
-- Rota responsável pelo agendamento de uma visita a um imóvel com os seguintes dados:
+
+- Rota responsável pela criação de um agendamento/visita a um imóvel com os seguintes dados:
   - **date**: string da data de agendamento da visita ao imóvel, no formato americano **AAAA-MM-DD**.
   - **hour**: string do horário de agendamento da visita ao imóvel, no formato **HH:MM**.
   - **realEstateId**: number, inteiro e obrigatório.
   - **userId**: Não deve ser passado no body da requisição, ele é captado através do token do usuário.
+
 - Não é possível agendar uma visita a um imóvel com a mesma data e hora.
 - Não é possível o mesmo **usuário** agendar uma visita a 2 imóveis diferentes com a mesma data e hora.
 - Só é possível agendar uma visita durante horário comercial (08:00 as 18:00).
 - Só é possível agendar uma visita durante dias úteis (segunda à sexta).
 - A rota pode ser acessada tanto por usuários comuns quanto administradores.
 
+
 ### CORPO DA REQUISIÇÃO:
+
 
 ```json
 {
@@ -535,9 +650,12 @@ A API tem um total de 12 endpoints
 }
 ```
 
-### FORMATO DA RESPOSTA - 
 
-#### STATUS 200
+### FORMATO DA RESPOSTA 
+
+
+#### AGENDAMENTO CRIADO COM SUCESSO: STATUS 201
+
 ```json
 {
 	"message": "Schedule created"
@@ -545,6 +663,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### REQUISIÇÃO SEM O TOKEN: STATUS 401
+
 ```json
 {
   "message": "Missing bearer token"
@@ -552,6 +671,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### DIA DA SEMANA INVÁLIDO: STATUS 400
+
 ```json
 {
 	"message": "Invalid date, work days are monday to friday"
@@ -559,6 +679,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### HORÁRIO INVÁLIDO: STATUS 400
+
 ```json
 {
 	"message": "Invalid hour, available times are 8AM to 18PM"
@@ -566,6 +687,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### JÁ EXISTE UM AGENDAMENTO COM O MESMO DIA & HORA PARA O EMPREENDIMENTO: STATUS 409
+
 ```json
 {
 	"message": "Schedule to this real estate at this date and time already exists"
@@ -573,20 +695,27 @@ A API tem um total de 12 endpoints
 ```
 
 #### O USUÁRIO JÁ TEM UM AGENDAMENTO COM O MESMO DIA & HORA: STATUS 409
+
 ```json
 {
 	"message": "User already has an schedule at this date and time"
 }
 ```
 
+#
+
 ## GET - /schedules/realEstate/:id
 
-- Rota que lista todos os agendamentos de um imóvel.
+
+- Rota responsável por listar todos os agendamentos de um imóvel.
 - A rota pode ser acessada apenas por administradores.
 
-### FORMATO DA RESPOSTA - 
 
-#### STATUS 200
+### FORMATO DA RESPOSTA
+
+
+#### LISTAGEM REALIZADA COM SUCESSO: STATUS 200
+
 ```json
 {
 	"id": 1,
@@ -627,6 +756,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### REQUISIÇÃO SEM O TOKEN: STATUS 401
+
 ```json
 {
   "message": "jwt must be provided"
@@ -634,6 +764,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
+
 ```json
 {
   "message": "Insufficient permission"
@@ -641,6 +772,7 @@ A API tem um total de 12 endpoints
 ```
 
 #### ID INEXISTENTE DO EMPREENDIMENTO: STATUS 404
+
 ```json
 {
   "message": "RealEstate not found"
