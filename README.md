@@ -2,9 +2,9 @@
   Imóveis - API
 </h1>
 
-<h2 align="center">
+<h3 align="center">
   A URL base da api é: https://api-imoveis.onrender.com
-</h2>
+</h3>
 
 ## Visão Geral
 
@@ -34,17 +34,17 @@ A aplicação possui ampla cobertura com testes unitários e end-to-end realizad
 - Bcryptjs
 - Jsonwebtoken
 - Jest e supertest
-<br/>
 
 
-## Tabelas do banco de dados
+
+### Tabelas do banco de dados
 
 <div align="center">
   <img src="./DER.png" alt="Diagrama de entidades e relacionamentos" />
 </div>
 
 
-## Endpoints:
+### Endpoints:
 
 A API tem um total de 12 endpoints
 
@@ -67,9 +67,9 @@ A API tem um total de 12 endpoints
 
 #
 
-<h2 align ='center'> USUÁRIO </h2>
+<h3 align ='center'> USUÁRIO </h3>
 
-## POST - /users
+### POST - /users
 
 
 - Rota responsável pela criação de usuário com os seguintes dados:
@@ -79,7 +79,7 @@ A API tem um total de 12 endpoints
   - **admin**: boolean, obrigatório e false por padrão.
 
 
-### CORPO DA REQUISIÇÃO:
+##### CORPO DA REQUISIÇÃO:
 
 
 ```json
@@ -90,10 +90,10 @@ A API tem um total de 12 endpoints
 }
 ```
 
-### FORMATO DA RESPOSTA
+##### FORMATO DA RESPOSTA
 
 
-#### USUÁRIO CRIADO COM SUCESSO: STATUS 201
+###### USUÁRIO CRIADO COM SUCESSO: STATUS 201
 
 ```json
 {
@@ -107,7 +107,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### E-MAIL JÁ CADASTRADO: STATUS 409
+###### E-MAIL JÁ CADASTRADO: STATUS 409
 
 ```json
 {
@@ -118,16 +118,14 @@ A API tem um total de 12 endpoints
 
 #
 
-## GET - /users
+### GET - /users
 
 - Rota responsável por listar todos os usuários.
 - A rota pode ser acessada apenas por usuários **administradores**.
 
+##### FORMATO DA RESPOSTA 
 
-### FORMATO DA RESPOSTA 
-
-
-#### LISTAGEM COM SUCESSO: STATUS 200
+###### LISTAGEM COM SUCESSO: STATUS 200
 
 ```json
 [
@@ -161,7 +159,7 @@ A API tem um total de 12 endpoints
 ]
 ```
 
-#### REQUISIÇÃO SEM O TOKEN: STATUS 401
+##### REQUISIÇÃO SEM O TOKEN: STATUS 401
 
 ```json
 {
@@ -169,7 +167,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
+##### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
 
 ```json
 {
@@ -180,17 +178,17 @@ A API tem um total de 12 endpoints
 
 #
 
-## PATCH - /users/:id
+### PATCH - /users/:id
 
 - Rota responsável por atualizar os dados do usuário.
 - Só é possível atualizar o **name**, **email** e **password**.
 - Apenas administradores podem atualizar qualquer usuário, usuários não-administradores podem apenas atualizar seu próprio usuário.
 
 
-### FORMATO DA RESPOSTA
+#### FORMATO DA RESPOSTA
 
 
-#### ATUALIZAÇÃO REALIZADA COM SUCESSO: STATUS 200
+##### ATUALIZAÇÃO REALIZADA COM SUCESSO: STATUS 200
 
 ```json
 // Rota /users/1 - CORPO DA REQUISIÇÃO:
@@ -211,7 +209,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### REQUISIÇÃO SEM O TOKEN: STATUS 401
+##### REQUISIÇÃO SEM O TOKEN: STATUS 401
 
 ```json
 {
@@ -219,7 +217,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
+##### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
 
 ```json
 {
@@ -227,7 +225,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### REQUISIÇÃO COM O TOKEN SEM SER DE ADMIN E TENTANDO ATUALIZAR UM OUTRO USUÁRIO: STATUS 403
+##### REQUISIÇÃO COM O TOKEN SEM SER DE ADMIN E TENTANDO ATUALIZAR UM OUTRO USUÁRIO: STATUS 403
 
 ```json
 {
@@ -235,7 +233,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### E-MAIL JÁ CADASTRADO: STATUS 409
+##### E-MAIL JÁ CADASTRADO: STATUS 409
 
 ```json
 {
@@ -243,7 +241,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### CASO O USUÁRIO NÃO EXISTA: STATUS 404
+##### CASO O USUÁRIO NÃO EXISTA: STATUS 404
 
 ```json
 {
@@ -254,20 +252,18 @@ A API tem um total de 12 endpoints
 
 #
 
-## DELETE - /users/:id
+### DELETE - /users/:id
 
 - Rota responsável por realizar um soft delete do usuário.
 - A rota pode ser acessada apenas por administradores.
 - Não é possível realizar um soft delete em um usuário já deletado.
 
 
-### FORMATO DA RESPOSTA
+#### FORMATO DA RESPOSTA
 
+##### USUÁRIO DELETADO COM SUCESSO: STATUS 204 - NO BODY
 
-#### USUÁRIO DELETADO COM SUCESSO: STATUS 204 - NO BODY
-
-
-#### REQUISIÇÃO SEM O TOKEN: STATUS 401
+##### REQUISIÇÃO SEM O TOKEN: STATUS 401
 
 ```json
 {
@@ -275,7 +271,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
+##### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
 
 ```json
 {
@@ -283,7 +279,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### USUÁRIO INEXISTENTE: STATUS 404
+##### USUÁRIO INEXISTENTE: STATUS 404
 
 ```json
 {
@@ -294,14 +290,14 @@ A API tem um total de 12 endpoints
 
 #
 
-<h2 align ='center'> LOGIN </h2>
+<h3 align ='center'> LOGIN </h3>
 
-## POST - /login
+### POST - /login
 
 - Rota de login recebendo **email** e **password**.
 
 
-### CORPO DA REQUISIÇÃO:
+#### CORPO DA REQUISIÇÃO:
 
 
 ```json
@@ -312,10 +308,10 @@ A API tem um total de 12 endpoints
 ```
 
 
-### FORMATO DA RESPOSTA
+#### FORMATO DA RESPOSTA
 
 
-#### TOKEN GERADO COM SUCESSO: STATUS 200
+##### TOKEN GERADO COM SUCESSO: STATUS 200
 
 ```json
 {
@@ -323,7 +319,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### REQUISIÇÃO COM EMAIL/SENHA INVÁLIDO(A): STATUS 401
+##### REQUISIÇÃO COM EMAIL/SENHA INVÁLIDO(A): STATUS 401
 
 ```json
 {
@@ -333,9 +329,9 @@ A API tem um total de 12 endpoints
 
 #
 
-<h2 align ='center'> CATEGORIAS </h2>
+<h3 align ='center'> CATEGORIAS </h3>
 
-## POST - /categories
+### POST - /categories
 
 
 - Rota responsável pela criação de uma categoria, recebendo os seguintes dados:
@@ -345,7 +341,7 @@ A API tem um total de 12 endpoints
 - A rota pode ser acessada apenas por usuários administradores.
 
 
-### CORPO DA REQUISIÇÃO:
+#### CORPO DA REQUISIÇÃO:
 
 
 ```json
@@ -355,10 +351,10 @@ A API tem um total de 12 endpoints
 ```
 
 
-### FORMATO DA RESPOSTA
+#### FORMATO DA RESPOSTA
 
 
-#### CATEGORIA CRIADA COM SUCESSO: STATUS 201
+##### CATEGORIA CRIADA COM SUCESSO: STATUS 201
 
 ```json
 {
@@ -367,7 +363,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### REQUISIÇÃO SEM O TOKEN: STATUS 401
+##### REQUISIÇÃO SEM O TOKEN: STATUS 401
 
 ```json
 {
@@ -375,7 +371,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
+##### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
 
 ```json
 {
@@ -383,7 +379,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### CATEGORIA JÁ EXISTENTE: STATUS 409
+##### CATEGORIA JÁ EXISTENTE: STATUS 409
 
 ```json
 {
@@ -393,16 +389,16 @@ A API tem um total de 12 endpoints
 
 #
 
-## GET - /categories
+### GET - /categories
 
 - Rota responsável por listar todas as categorias.
 - A rota não precisa de autenticação para ser acessada.
 
 
-### FORMATO DA RESPOSTA
+#### FORMATO DA RESPOSTA
 
 
-#### LISTAGEM COM SUCESSO: STATUS 200
+##### LISTAGEM COM SUCESSO: STATUS 200
 
 ```json
 [
@@ -423,16 +419,16 @@ A API tem um total de 12 endpoints
 
 #
 
-## GET - /categories/:id/realEstate
+### GET - /categories/:id/realEstate
 
 - Rota responsável por listar todos os imóveis que pertencem a uma categoria.
 - A rota não precisa de autenticação para ser acessada.
 
 
-### FORMATO DA RESPOSTA
+#### FORMATO DA RESPOSTA
 
 
-#### LISTAGEM COM SUCESSO: STATUS 200
+##### LISTAGEM COM SUCESSO: STATUS 200
 
 ```json
 {
@@ -451,7 +447,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### CATEGORIA INEXISTENTE: STATUS 404
+##### CATEGORIA INEXISTENTE: STATUS 404
 
 ```json
 {
@@ -461,9 +457,9 @@ A API tem um total de 12 endpoints
 
 #
 
-<h2 align ='center'> EMPREENDIMENTOS </h2>
+<h3 align ='center'> EMPREENDIMENTOS </h3>
 
-## POST - /realEstate
+### POST - /realEstate
 
 - Rota responsável pela criação de um imóvel, recebendo os seguintes dados:
   - **value**: decimal, precisão 12 e escala 2, obrigatório e 0 por padrão.
@@ -480,7 +476,7 @@ A API tem um total de 12 endpoints
 - A rota pode ser acessada apenas por administradores.
 
 
-### CORPO DA REQUISIÇÃO:
+#### CORPO DA REQUISIÇÃO:
 
 ```json
 {
@@ -498,10 +494,10 @@ A API tem um total de 12 endpoints
 ```
 
 
-### FORMATO DA RESPOSTA
+#### FORMATO DA RESPOSTA
 
 
-#### EMPREENDIMENTO CRIADO COM SUCESSO: STATUS 201
+##### EMPREENDIMENTO CRIADO COM SUCESSO: STATUS 201
 
 ```json
 {
@@ -526,7 +522,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### REQUISIÇÃO SEM O TOKEN: STATUS 401
+##### REQUISIÇÃO SEM O TOKEN: STATUS 401
 
 ```json
 {
@@ -534,7 +530,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
+##### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
 
 ```json
 {
@@ -542,7 +538,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### ENDEREÇO JÁ EXISTENTE: STATUS 409
+##### ENDEREÇO JÁ EXISTENTE: STATUS 409
 
 ```json
 {
@@ -552,16 +548,16 @@ A API tem um total de 12 endpoints
 
 #
 
-## GET - /realEstate
+### GET - /realEstate
 
 - Rota responsável por listar todos os imóveis.
 - A rota não precisa de autenticação para ser acessada.
 
 
-### FORMATO DA RESPOSTA
+#### FORMATO DA RESPOSTA
 
 
-#### LISTAGEM COM SUCESSO: STATUS 200
+##### LISTAGEM COM SUCESSO: STATUS 200
 
 ```json
 [
@@ -602,9 +598,9 @@ A API tem um total de 12 endpoints
 
 #
 
-<h2 align ='center'> AGENDAMENTOS </h2>
+<h3 align ='center'> AGENDAMENTOS </h3>
 
-## POST - /schedules
+### POST - /schedules
 
 - Rota responsável pela criação de um agendamento/visita a um imóvel com os seguintes dados:
   - **date**: string da data de agendamento da visita ao imóvel, no formato americano **AAAA-MM-DD**.
@@ -619,7 +615,7 @@ A API tem um total de 12 endpoints
 - A rota pode ser acessada tanto por usuários comuns quanto administradores.
 
 
-### CORPO DA REQUISIÇÃO:
+#### CORPO DA REQUISIÇÃO:
 
 
 ```json
@@ -631,10 +627,10 @@ A API tem um total de 12 endpoints
 ```
 
 
-### FORMATO DA RESPOSTA 
+#### FORMATO DA RESPOSTA 
 
 
-#### AGENDAMENTO CRIADO COM SUCESSO: STATUS 201
+##### AGENDAMENTO CRIADO COM SUCESSO: STATUS 201
 
 ```json
 {
@@ -642,7 +638,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### REQUISIÇÃO SEM O TOKEN: STATUS 401
+##### REQUISIÇÃO SEM O TOKEN: STATUS 401
 
 ```json
 {
@@ -650,7 +646,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### DIA DA SEMANA INVÁLIDO: STATUS 400
+##### DIA DA SEMANA INVÁLIDO: STATUS 400
 
 ```json
 {
@@ -658,7 +654,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### HORÁRIO INVÁLIDO: STATUS 400
+##### HORÁRIO INVÁLIDO: STATUS 400
 
 ```json
 {
@@ -666,7 +662,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### JÁ EXISTE UM AGENDAMENTO COM O MESMO DIA & HORA PARA O EMPREENDIMENTO: STATUS 409
+##### JÁ EXISTE UM AGENDAMENTO COM O MESMO DIA & HORA PARA O EMPREENDIMENTO: STATUS 409
 
 ```json
 {
@@ -674,7 +670,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### O USUÁRIO JÁ TEM UM AGENDAMENTO COM O MESMO DIA & HORA: STATUS 409
+##### O USUÁRIO JÁ TEM UM AGENDAMENTO COM O MESMO DIA & HORA: STATUS 409
 
 ```json
 {
@@ -684,16 +680,16 @@ A API tem um total de 12 endpoints
 
 #
 
-## GET - /schedules/realEstate/:id
+### GET - /schedules/realEstate/:id
 
 - Rota responsável por listar todos os agendamentos de um imóvel.
 - A rota pode ser acessada apenas por administradores.
 
 
-### FORMATO DA RESPOSTA
+#### FORMATO DA RESPOSTA
 
 
-#### LISTAGEM REALIZADA COM SUCESSO: STATUS 200
+##### LISTAGEM REALIZADA COM SUCESSO: STATUS 200
 
 ```json
 {
@@ -734,7 +730,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### REQUISIÇÃO SEM O TOKEN: STATUS 401
+##### REQUISIÇÃO SEM O TOKEN: STATUS 401
 
 ```json
 {
@@ -742,7 +738,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
+##### REQUISIÇÃO COM O TOKEN, MAS SEM SER DE ADMIN: STATUS 403
 
 ```json
 {
@@ -750,7 +746,7 @@ A API tem um total de 12 endpoints
 }
 ```
 
-#### ID INEXISTENTE DO EMPREENDIMENTO: STATUS 404
+##### ID INEXISTENTE DO EMPREENDIMENTO: STATUS 404
 
 ```json
 {
