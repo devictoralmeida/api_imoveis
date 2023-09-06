@@ -122,8 +122,8 @@ A API tem um total de 12 endpoints
 
 - Rota responsável por listar todos os usuários.
 
-[!IMPORTANT]
-- A rota pode ser acessada apenas por usuários **administradores**.
+> [!IMPORTANT]
+> A rota pode ser acessada apenas por usuários **administradores**.
 
 ##### FORMATO DA RESPOSTA 
 
@@ -184,11 +184,11 @@ A API tem um total de 12 endpoints
 
 - Rota responsável por atualizar os dados do usuário.
 
-[!NOTE]
-- Só é possível atualizar o **name**, **email** e **password**.
+> [!NOTE]
+> Só é possível atualizar o **name**, **email** e **password**.
 
-[!IMPORTANT]
-- Apenas administradores podem atualizar qualquer usuário, usuários não-administradores podem apenas atualizar seu próprio usuário.
+> [!IMPORTANT]
+> Apenas administradores podem atualizar qualquer usuário, usuários não-administradores podem apenas atualizar seu próprio usuário.
 
 
 #### FORMATO DA RESPOSTA
@@ -262,11 +262,11 @@ A API tem um total de 12 endpoints
 
 - Rota responsável por realizar um soft delete do usuário.
 
-[!NOTE]
-- Não é possível realizar um soft delete em um usuário já deletado.
+> [!NOTE]
+> Não é possível realizar um soft delete em um usuário já deletado.
 
-[!IMPORTANT]
-- A rota pode ser acessada apenas por administradores.
+> [!IMPORTANT]
+> A rota pode ser acessada apenas por administradores.
 
 #### FORMATO DA RESPOSTA
 
@@ -345,11 +345,11 @@ A API tem um total de 12 endpoints
 - Rota responsável pela criação de uma categoria, recebendo os seguintes dados:
   - **name**: string, máximo de 45 caracteres e obrigatório.
 
-[!NOTE]
-- Não é possível criar uma categoria com o nome em duplicidade.
+> [!NOTE]
+> Não é possível criar uma categoria com o nome em duplicidade.
 
-[!IMPORTANT]
-- A rota pode ser acessada apenas por usuários administradores.
+> [!IMPORTANT]
+> A rota pode ser acessada apenas por usuários administradores.
 
 #### CORPO DA REQUISIÇÃO:
 
@@ -479,11 +479,11 @@ A API tem um total de 12 endpoints
     - **city**: string, máximo de 20 caracteres e obrigatório.
     - **state**: string, máximo de 2 caracteres e obrigatório.
 
-[!NOTE]
-- Não podem ser cadastrados dois imóveis com o mesmo endereço.
+> [!NOTE]
+> Não podem ser cadastrados dois imóveis com o mesmo endereço.
 
-[!IMPORTANT]
-- A rota pode ser acessada apenas por administradores.
+> [!IMPORTANT]
+> A rota pode ser acessada apenas por administradores.
 
 
 #### CORPO DA REQUISIÇÃO:
@@ -617,12 +617,12 @@ A API tem um total de 12 endpoints
   - **realEstateId**: number, inteiro e obrigatório.
   - **userId**: Não deve ser passado no body da requisição, ele é captado através do token do usuário.
 
-[!NOTE]
-- Não é possível agendar uma visita a um imóvel com a mesma data e hora.
-- Não é possível o mesmo **usuário** agendar uma visita a 2 imóveis diferentes com a mesma data e hora.
-- Só é possível agendar uma visita durante horário comercial (08:00 as 18:00).
-- Só é possível agendar uma visita durante dias úteis (segunda à sexta).
-- A rota pode ser acessada tanto por usuários comuns quanto administradores.
+> [!NOTE]
+> Não é possível agendar uma visita a um imóvel com a mesma data e hora.
+> Não é possível o mesmo **usuário** agendar uma visita a 2 imóveis diferentes com a mesma data e hora.
+> Só é possível agendar uma visita durante horário comercial (08:00 as 18:00).
+> Só é possível agendar uma visita durante dias úteis (segunda à sexta).
+> A rota pode ser acessada tanto por usuários comuns quanto administradores.
 
 #### CORPO DA REQUISIÇÃO:
 
@@ -690,8 +690,8 @@ A API tem um total de 12 endpoints
 
 - Rota responsável por listar todos os agendamentos de um imóvel.
 
-[!IMPORTANT]
-- A rota pode ser acessada apenas por administradores.
+> [!IMPORTANT]
+> A rota pode ser acessada apenas por administradores.
 
 #### FORMATO DA RESPOSTA
 
