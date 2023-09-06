@@ -36,20 +36,18 @@ A aplicação possui ampla cobertura com testes unitários e end-to-end realizad
 - Jest e supertest
 <br/>
 
-#
 
-## **Tabelas do banco de dados**
+## Tabelas do banco de dados
 
 <div align="center">
   <img src="./DER.png" alt="Diagrama de entidades e relacionamentos" />
 </div>
 
 
-#
-
 ## Endpoints:
 
 A API tem um total de 12 endpoints
+
 
 | Método | Endpoint                   | Responsabilidade                                  | Autenticação                           |
 | ------ | -------------------------- | ------------------------------------------------- | -------------------------------------- |
@@ -69,8 +67,7 @@ A API tem um total de 12 endpoints
 
 #
 
-<h2 align ='center'> Usuário </h2>
-
+<h2 align ='center'> USUÁRIO </h2>
 
 ## POST - /users
 
@@ -122,7 +119,6 @@ A API tem um total de 12 endpoints
 #
 
 ## GET - /users
-
 
 - Rota responsável por listar todos os usuários.
 - A rota pode ser acessada apenas por usuários **administradores**.
@@ -186,7 +182,6 @@ A API tem um total de 12 endpoints
 
 ## PATCH - /users/:id
 
-
 - Rota responsável por atualizar os dados do usuário.
 - Só é possível atualizar o **name**, **email** e **password**.
 - Apenas administradores podem atualizar qualquer usuário, usuários não-administradores podem apenas atualizar seu próprio usuário.
@@ -204,9 +199,7 @@ A API tem um total de 12 endpoints
     "email": "jhondoe@gmail.com",
     "password": "123456"
 }
-```
 
-```json
 {
     "id": 1,
     "name": "JhonDoe",
@@ -263,7 +256,6 @@ A API tem um total de 12 endpoints
 
 ## DELETE - /users/:id
 
-
 - Rota responsável por realizar um soft delete do usuário.
 - A rota pode ser acessada apenas por administradores.
 - Não é possível realizar um soft delete em um usuário já deletado.
@@ -274,9 +266,6 @@ A API tem um total de 12 endpoints
 
 #### USUÁRIO DELETADO COM SUCESSO: STATUS 204 - NO BODY
 
-```json
-
-```
 
 #### REQUISIÇÃO SEM O TOKEN: STATUS 401
 
@@ -305,11 +294,9 @@ A API tem um total de 12 endpoints
 
 #
 
-<h2 align ='center'> Login </h2>
-
+<h2 align ='center'> LOGIN </h2>
 
 ## POST - /login
-
 
 - Rota de login recebendo **email** e **password**.
 
@@ -346,8 +333,7 @@ A API tem um total de 12 endpoints
 
 #
 
-<h2 align ='center'> Categorias </h2>
-
+<h2 align ='center'> CATEGORIAS </h2>
 
 ## POST - /categories
 
@@ -409,7 +395,6 @@ A API tem um total de 12 endpoints
 
 ## GET - /categories
 
-
 - Rota responsável por listar todas as categorias.
 - A rota não precisa de autenticação para ser acessada.
 
@@ -439,7 +424,6 @@ A API tem um total de 12 endpoints
 #
 
 ## GET - /categories/:id/realEstate
-
 
 - Rota responsável por listar todos os imóveis que pertencem a uma categoria.
 - A rota não precisa de autenticação para ser acessada.
@@ -477,21 +461,20 @@ A API tem um total de 12 endpoints
 
 #
 
-<h2 align ='center'> Empreendimentos </h2>
+<h2 align ='center'> EMPREENDIMENTOS </h2>
 
 ## POST - /realEstate
-
 
 - Rota responsável pela criação de um imóvel, recebendo os seguintes dados:
   - **value**: decimal, precisão 12 e escala 2, obrigatório e 0 por padrão.
   - **size**: número inteiro e obrigatório.
+  - **categoryId**: number, inteiro e obrigatório.
   - **address**: um objeto com os seguintes dados:
     - **street**: string, máximo de 45 caracteres e obrigatório.
     - **zipCode**: string, máximo de 8 caracteres e obrigatório.
     - **number**: number, inteiro, positivo e obrigatório.
     - **city**: string, máximo de 20 caracteres e obrigatório.
     - **state**: string, máximo de 2 caracteres e obrigatório.
-  - **categoryId**: number, inteiro e obrigatório.
 
 - Não podem ser cadastrados dois imóveis com o mesmo endereço.
 - A rota pode ser acessada apenas por administradores.
@@ -571,7 +554,6 @@ A API tem um total de 12 endpoints
 
 ## GET - /realEstate
 
-
 - Rota responsável por listar todos os imóveis.
 - A rota não precisa de autenticação para ser acessada.
 
@@ -620,11 +602,9 @@ A API tem um total de 12 endpoints
 
 #
 
-<h2 align ='center'> Agendamentos </h2>
-
+<h2 align ='center'> AGENDAMENTOS </h2>
 
 ## POST - /schedules
-
 
 - Rota responsável pela criação de um agendamento/visita a um imóvel com os seguintes dados:
   - **date**: string da data de agendamento da visita ao imóvel, no formato americano **AAAA-MM-DD**.
@@ -705,7 +685,6 @@ A API tem um total de 12 endpoints
 #
 
 ## GET - /schedules/realEstate/:id
-
 
 - Rota responsável por listar todos os agendamentos de um imóvel.
 - A rota pode ser acessada apenas por administradores.
